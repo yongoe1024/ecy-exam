@@ -15,6 +15,7 @@ import com.yongoe.ecy.exam.service.ExamInfoService;
 import com.yongoe.ecy.exam.service.QuestionOptionService;
 import com.yongoe.ecy.exam.service.UserPaperService;
 import jakarta.annotation.Resource;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -111,8 +112,8 @@ public class UserPaperServiceImpl extends ServiceImpl<UserPaperMapper, UserPaper
                 } else if (type == 2) {
                     // 多选
                     String answer = userQuestion.getAnswer();
+                    String[] split = StringUtils.isEmpty(answer) ? new String[]{} : answer.split(",");
                     List<String> answerId = this.getAnswerId(userQuestion.getId());
-                    String[] split = answer.split(",");
                     //判断两个数组是否完全一样
                     if (Arrays.equals(answerId.toArray(), split)) {
                         userQuestion.setScore(Double.valueOf(userQuestion.getTotalScore()));
