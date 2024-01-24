@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yongoe.ecy.system.mapper.RoleMapper">
+    <!--通用查询映射结果-->
+    <resultMap id="BaseResultMap" type="com.yongoe.ecy.system.entity.Role">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="code" property="code"/>
+        <collection property="menuIds"
+                    select="selectMenuIdByRoleId"
+                    column="id">
+        </collection>
+    </resultMap>
+
+    <!--    获取角色菜单-->
+    <select id="selectMenuIdByRoleId" resultType="java.lang.Long">
+        select menu_id
+        from sys_role_menu
+        where role_id = #{roleId}
+    </select>
+
+    <select id="getRoleByPage" resultMap="BaseResultMap">
+        select *
+        from sys_role
+        <where>
+            id != 1
+            <if test="null != role.name and ''!=role.name">
+                and name LIKE CONCAT('%',#{role.name},'%')
+            </if>
+            <if test="null != role.code and ''!=role.code">
+                and code LIKE CONCAT('%',#{role.code},'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>

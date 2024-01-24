@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yongoe.ecy.exam.mapper.QuestionBankMapper">
+
+    <!--    获取分页数据-->
+    <select id="getQuestionBankByPage" resultType="com.yongoe.ecy.exam.entity.QuestionBank">
+        select *,
+        (select count(*) from e_question where question_bank_id = e_question_bank.id) as num
+        from e_question_bank
+        <where>
+            <if test="null != questionBank.id">
+                and id = #{questionBank.id}
+            </if>
+            <if test="null != questionBank.name and ''!=questionBank.name">
+                and name LIKE CONCAT('%',#{questionBank.name  },'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yongoe.ecy.system.mapper.MenuMapper">
+
+    <select id="getRoleIdsByMenuId" resultType="java.lang.Long">
+        select a.role_id
+        from sys_role_menu a
+        where a.menu_id = #{menuId}
+    </select>
+
+    <select id="getMenuByUser" resultType="com.yongoe.ecy.system.entity.Menu">
+        SELECT sys_menu.*
+        from sys_menu
+                 LEFT JOIN sys_role_menu ON sys_role_menu.menu_id = sys_menu.id
+                 LEFT JOIN sys_user_role ON sys_user_role.role_id = sys_role_menu.role_id
+        WHERE sys_menu.enabled = 1
+          and sys_user_role.user_id = #{userId}
+        order by sys_menu.sort desc
+    </select>
+
+
+</mapper>
