@@ -51,6 +51,6 @@ span {
 }
 i {
   font-size: 18px;
-  color: #ffffff;
+  color: #000000;
 }
 </style>

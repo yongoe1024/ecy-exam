@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <el-popover placement="bottom"
                 v-model="popover"
                 width="400"

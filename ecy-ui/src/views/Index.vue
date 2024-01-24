@@ -1,21 +1,20 @@
 <template>
   <!-- 页面主体 -->
   <div>
-    <el-container style="height:100vh">
+    <div class="fix"></div>
+    <el-container style="height:100vh;">
       <el-aside :width="isCollapse?'64px':'200px'">
         <!-- 启动路由模式 只打开一个菜单 -->
         <el-menu router
                  :collapse="isCollapse"
                  :collapse-transition="false"
-                 style="height:100%"
+                 style="height:100%;"
                  class="el-menu-vertical"
-                 background-color="#3e506b"
-                 text-color="#FFFFFF"
                  :default-active="$router.currentRoute.path"
                  unique-opened>
           <el-menu-item index="/home">
             <i class="fa fa-home"
-               style="margin-left:3px;color:#FFFFFF;font-size:23px"></i>
+               style="margin-left:3px;font-size:23px"></i>
             <span style="margin-left:20px;font-size:15px">首页</span>
           </el-menu-item>
           <e-menu-item v-for="(item, index) in routes"
@@ -130,6 +129,19 @@ export default {
 };
 </script>
 <style >
+.fix {
+  /* 层级 */
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(@/assets/back.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.1;
+}
 .homeHeader {
   display: flex;
   justify-content: space-between;
