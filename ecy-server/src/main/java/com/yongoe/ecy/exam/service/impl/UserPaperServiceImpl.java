@@ -113,7 +113,7 @@ public class UserPaperServiceImpl extends ServiceImpl<UserPaperMapper, UserPaper
                     // 多选
                     String answer = userQuestion.getAnswer();
                     String[] split = StringUtils.isEmpty(answer) ? new String[]{} : answer.split(",");
-                    List<String> answerId = this.getAnswerId(userQuestion.getId());
+                    List<String> answerId = this.getAnswerId(userQuestion.getQuestionId());
                     //判断两个数组是否完全一样
                     if (Arrays.equals(answerId.toArray(), split)) {
                         userQuestion.setScore(Double.valueOf(userQuestion.getTotalScore()));

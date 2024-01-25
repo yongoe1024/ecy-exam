@@ -98,9 +98,11 @@
         e_question_option.id as option_id,
         e_question_option.content as option_content,
         e_question_option.is_true as option_is_true
-        FROM e_user_question
-        LEFT JOIN e_exam_question ON e_exam_question.question_id = e_user_question.question_id
+        FROM
+        e_user_question
         left join e_question on e_question.id = e_user_question.question_id
+        left join e_exam_question ON (e_exam_question.question_id = e_user_question.question_id and
+        e_exam_question.exam_id = e_user_question.exam_id)
         left join e_question_option on e_question_option.question_id=e_user_question.question_id
         <where>
             <if test="null != paperId">
