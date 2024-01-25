@@ -1,44 +1,46 @@
 <template>
   <div class="box">
-    <el-form :rules="rules"
-             ref="form"
-             :model="form"
-             label="right"
-             label-width="auto"
-             class="login-box">
+    <el-card style="width: 500px;">
+      <el-form :rules="rules"
+               ref="form"
+               :model="form"
+               label="right"
+               label-width="auto"
+               class="login-box">
 
-      <el-form-item>
-        <h1>找回密码</h1>
-      </el-form-item>
+        <el-form-item>
+          <h1>找回密码</h1>
+        </el-form-item>
 
-      <el-form-item prop="username"
-                    label="账号:">
-        <el-input v-model="form.username"
-                  placeholder="请输入账号">
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="email"
-                    label="邮箱:">
-        <el-input v-model="form.email"
-                  placeholder="请输入邮箱"></el-input>
-      </el-form-item>
+        <el-form-item prop="username"
+                      label="账号:">
+          <el-input v-model="form.username"
+                    placeholder="请输入账号">
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="email"
+                      label="邮箱:">
+          <el-input v-model="form.email"
+                    placeholder="请输入邮箱"></el-input>
+        </el-form-item>
 
-      <el-form-item prop="password"
-                    label="新密码:">
-        <el-input show-password
-                  v-model="form.password"
-                  placeholder="请输入密码"></el-input>
-      </el-form-item>
+        <el-form-item prop="password"
+                      label="新密码:">
+          <el-input show-password
+                    v-model="form.password"
+                    placeholder="请输入密码"></el-input>
+        </el-form-item>
 
-      <el-form-item>
-        <el-button style="width: 100%"
-                   type="primary"
-                   @click="submitForm">确认</el-button>
-      </el-form-item>
+        <el-form-item>
+          <el-button style="width: 100%"
+                     type="primary"
+                     @click="submitForm">确认</el-button>
+        </el-form-item>
 
-      <el-link @click="$router.push('/login')"
-               type="primary">返回</el-link>
-    </el-form>
+        <el-link @click="$router.push('/login')"
+                 type="primary">返回</el-link>
+      </el-form>
+    </el-card>
   </div>
 </template>
 
@@ -80,21 +82,16 @@ export default {
 .box {
   height: 100%;
   width: 100%;
-  position: absolute;
-  background-image: url("../../assets/back2.jpg");
+  position: fixed !important;
+  background-image: url("../../assets/back.jpg");
   background-size: 100% 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .login-box {
-  width: 350px;
   margin: 0 auto;
   padding: 20px;
-  color: white !important;
-}
-.box >>> .el-form-item__label {
-  color: white !important;
 }
 </style>
 

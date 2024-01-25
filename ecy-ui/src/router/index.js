@@ -20,12 +20,12 @@ const routes = [
   {
     path: '/register',
     name: '注册账号',
-    component: () => import('@/views/user/Register')
+    component: () => import('@/views/user/Register2')
   },
   {
     path: '/forget',
     name: '找回密码',
-    component: () => import('@/views/user/Forget'),
+    component: () => import('@/views/user/Forget2'),
   },
   {
     path: '',
