@@ -35,13 +35,6 @@
           <router-link :to="{path: 'register'}">注册账号</router-link>
           <router-link :to="{path: 'forget'}">忘记密码？</router-link>
         </div>
-        <!-- <div class="qq">
-          社交账号登录<br>
-          <a :href="$BASE_URL+'/oauth/qq/redirect'">
-            <img style="width:25px;margin:10px"
-                 src="../assets/icon_QQ.png">
-          </a>
-        </div> -->
       </el-form>
     </div>
 
