@@ -8,9 +8,9 @@ dist.zip
 package-lock.json
 
 target
-ecy-file
+exam-file
 *.iml
 pom.xml.versionsBackup
-
-
 static/
+
+pnpm-lock.yaml

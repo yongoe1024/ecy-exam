@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yongoe.exam.mapper.UserPaperMapper">
+
+    <!--    获取分页数据-->
+    <select id="getUserPaperByPage" resultType="com.yongoe.exam.entity.UserPaper">
+        select e_user_paper.*,
+        sys_user.name
+        from e_user_paper
+        left join sys_user on e_user_paper.user_id=sys_user.id
+        <where>
+            <if test="null != userPaper.id">
+                and id = #{userPaper.id}
+            </if>
+            <if test="null != userPaper.userId">
+                and user_id = #{userPaper.userId}
+            </if>
+            <if test="null != userPaper.examId">
+                and exam_id = #{userPaper.examId}
+            </if>
+            <if test="null != userPaper.status and ''!=userPaper.status">
+                and status LIKE CONCAT('%',#{userPaper.status  },'%')
+            </if>
+            <if test="null != userPaper.enterTime">
+                and enter_time = #{userPaper.enterTime}
+            </if>
+            <if test="null != userPaper.finishTime">
+                and finish_time = #{userPaper.finishTime}
+            </if>
+            <if test="null != userPaper.score">
+                and score = #{userPaper.score}
+            </if>
+            <if test="null != userPaper.createTime">
+                and create_time = #{userPaper.createTime}
+            </if>
+            <if test="null != userPaper.updateTime">
+                and update_time = #{userPaper.updateTime}
+            </if>
+            <if test="null != userPaper.createBy and ''!=userPaper.createBy">
+                and create_by LIKE CONCAT('%',#{userPaper.createBy  },'%')
+            </if>
+            <if test="null != userPaper.updateBy and ''!=userPaper.updateBy">
+                and update_by LIKE CONCAT('%',#{userPaper.updateBy  },'%')
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="export" resultType="com.yongoe.exam.controller.vo.excel.UserPaperExcel">
+        SELECT
+        e_exam_info.exam_name as exam_name,
+        sys_user.name as name,
+        e_user_paper.status,
+        e_user_paper.enter_time,
+        e_user_paper.finish_time,
+        e_user_paper.score,
+        basic_department.name as dept_name
+        FROM e_user_paper
+        LEFT JOIN sys_user on e_user_paper.user_id = sys_user.id
+        LEFT JOIN e_exam_info on e_user_paper.exam_id = e_exam_info.id
+        LEFT JOIN basic_department on sys_user.department_id = basic_department.id
+        <where>
+            <if test="null != examId">
+                e_user_paper.exam_id = #{examId}
+            </if>
+            <if test="null != status">
+                and e_user_paper.status = #{status}
+            </if>
+        </where>
+        order by finish_time
+    </select>
+
+
+    <resultMap id="question" type="com.yongoe.exam.entity.UserQuestion">
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="exam_id" property="examId"/>
+        <result column="paper_id" property="paperId"/>
+        <result column="question_id" property="questionId"/>
+        <result column="score" property="score"/>
+        <result column="is_true" property="isTrue"/>
+        <result column="answer" property="answer"/>
+        <result column="total_score" property="totalScore"/>
+        <result column="type" property="type"/>
+        <result column="content" property="content"/>
+        <collection property="questionOption" ofType="com.yongoe.exam.entity.QuestionOption">
+            <result column="option_id" property="id"/>
+            <result column="option_content" property="content"/>
+            <result column="option_is_true" property="isTrue"/>
+        </collection>
+    </resultMap>
+
+    <select id="getQuestionByPaper" resultMap="question">
+        SELECT e_user_question.*,
+        e_exam_question.score as total_score,
+        e_question.type ,
+        e_question.content,
+        e_question_option.id as option_id,
+        e_question_option.content as option_content,
+        e_question_option.is_true as option_is_true
+        FROM
+        e_user_question
+        left join e_question on e_question.id = e_user_question.question_id
+        left join e_exam_question ON (e_exam_question.question_id = e_user_question.question_id and
+        e_exam_question.exam_id = e_user_question.exam_id)
+        left join e_question_option on e_question_option.question_id=e_user_question.question_id
+        <where>
+            <if test="null != paperId">
+                e_user_question.paper_id = #{paperId}
+            </if>
+            <if test="null != type">
+                and e_question.type = #{type}
+            </if>
+        </where>
+    </select>
+
+</mapper>

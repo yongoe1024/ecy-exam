@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yongoe.exam.mapper.ExamInfoMapper">
+
+    <!--    获取分页数据-->
+    <select id="getExamInfoByPage" resultType="com.yongoe.exam.entity.ExamInfo">
+        select *
+        from e_exam_info
+        <where>
+            <if test="null != examInfo.id">
+                and id = #{examInfo.id}
+            </if>
+            <if test="null != examInfo.examName and ''!=examInfo.examName">
+                and exam_name LIKE CONCAT('%',#{examInfo.examName  },'%')
+            </if>
+            <if test="null != examInfo.examDesc and ''!=examInfo.examDesc">
+                and exam_desc LIKE CONCAT('%',#{examInfo.examDesc  },'%')
+            </if>
+            <if test="null != examInfo.openType and ''!=examInfo.openType">
+                and open_type LIKE CONCAT('%',#{examInfo.openType  },'%')
+            </if>
+            <if test="null != examInfo.duration">
+                and duration = #{examInfo.duration}
+            </if>
+            <if test="null != examInfo.startTime">
+                and start_time = #{examInfo.startTime}
+            </if>
+            <if test="null != examInfo.endTime">
+                and end_time = #{examInfo.endTime}
+            </if>
+            <if test="null != examInfo.totalScore">
+                and total_score = #{examInfo.totalScore}
+            </if>
+            <if test="null != examInfo.passScore">
+                and pass_score = #{examInfo.passScore}
+            </if>
+            <if test="null != examInfo.status">
+                and status = #{examInfo.status}
+            </if>
+            <if test="null != examInfo.createTime">
+                and create_time = #{examInfo.createTime}
+            </if>
+            <if test="null != examInfo.updateTime">
+                and update_time = #{examInfo.updateTime}
+            </if>
+            <if test="null != examInfo.createBy and ''!=examInfo.createBy">
+                and create_by LIKE CONCAT('%',#{examInfo.createBy  },'%')
+            </if>
+            <if test="null != examInfo.updateBy and ''!=examInfo.updateBy">
+                and update_by LIKE CONCAT('%',#{examInfo.updateBy  },'%')
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+</mapper>

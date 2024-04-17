@@ -1,0 +1,15 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /exam    #项目访问路径
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+
+spring:
+  profiles:
+    active: dev
+  banner:
+    location: /banner.txt
+
+
+
